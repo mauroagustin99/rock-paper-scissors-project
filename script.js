@@ -2,9 +2,11 @@ const options = ["rock", "paper", "scissors"];
 let countUser = 0; let countComputer = 0;
 
 
+
 function round(playerSelection, computerSelection) {
+
     switch (playerSelection) {
-        case "rock":
+        case ("Rock"):
             if (computerSelection == "paper") {
                 countComputer += 1;
                 return ("You Lose! Paper beats Rock");
@@ -16,7 +18,7 @@ function round(playerSelection, computerSelection) {
             else {
                 return ("Tie");
             }
-        case "paper":
+        case ("Paper"):
             if (computerSelection == "scissors") {
                 countComputer += 1;
                 return ("You Lose! Scissors beats Paper");
@@ -28,7 +30,7 @@ function round(playerSelection, computerSelection) {
             else {
                 return ("Tie");
             }
-        case "scissors":
+        case ("Scissors"):
             if (computerSelection == "rock") {
                 countComputer += 1;
                 return ("You Lose! Rock beats Scissors");
@@ -49,32 +51,39 @@ function game() {
     function getComputerChoice() {
         return (options[(Math.floor(Math.random() * options.length))]);
     };
+    //
 
-    //The player chooses here without the possibility of making a mistake
-    let playerSelection;
-    let finalSelection;
-    do {
-        playerSelection = prompt("Choose an option: rock , paper or scissors.").toLowerCase();
-        if (options.includes(playerSelection)) {
-            finalSelection = playerSelection;
-        }
-        else {
-            alert("Invalid option, try again.");
-        }
-    }
-    while (finalSelection !== playerSelection);
-    console.log(finalSelection);
-    console.log(playerSelection);
+    const buttons = document.querySelectorAll('button');
+
+    const container = document.querySelector('.content');
+    const selection = document.createElement('div');
+    const result = document.createElement('div');
+    const score = document.createElement('div');
+
+    container.appendChild(selection);
+    container.appendChild(result);
+    container.appendChild(score);
+
+    buttons.forEach((button) => {
+
+        button.addEventListener('click', () => {
+
+            let playerSelection = (button.textContent);
+            let computerSelection = getComputerChoice();
 
 
-    let computerSelection = getComputerChoice();
+            result.textContent = round(playerSelection, computerSelection);
+            selection.textContent = "You chose: " + playerSelection + " -- The computer chose: " + computerSelection;
+            score.textContent = "Score User: " + countUser + " || Score Computer: " + countComputer;
+            
+        });
 
-    console.log(round(finalSelection, computerSelection));
-    console.log("Score User: " + countUser + " || Score Computer: " + countComputer);
-
+    });
 
 }
+game();
 
+/* 
 for (var i = 0; i <= 5; i++) {
     game();
 }
@@ -87,5 +96,7 @@ else if(countUser<countComputer){
 else{
     console.log("It's a draw!");
 }
+*/
+
 
 
