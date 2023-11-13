@@ -47,6 +47,7 @@ function round(playerSelection, computerSelection) {
 
 function game() {
 
+
     //Computer's random choosing
     function getComputerChoice() {
         return (options[(Math.floor(Math.random() * options.length))]);
@@ -64,39 +65,46 @@ function game() {
     container.appendChild(result);
     container.appendChild(score);
 
+
+
     buttons.forEach((button) => {
 
         button.addEventListener('click', () => {
+            if (countComputer < 5 && countUser < 5) {
 
-            let playerSelection = (button.textContent);
-            let computerSelection = getComputerChoice();
+                let playerSelection = (button.textContent);
+                let computerSelection = getComputerChoice();
 
 
-            result.textContent = round(playerSelection, computerSelection);
-            selection.textContent = "You chose: " + playerSelection + " -- The computer chose: " + computerSelection;
-            score.textContent = "Score User: " + countUser + " || Score Computer: " + countComputer;
-            
+                result.textContent = round(playerSelection, computerSelection);
+                selection.textContent = "You chose: " + playerSelection + " -- The computer chose: " + computerSelection;
+                score.textContent = "Score User: " + countUser + " || Score Computer: " + countComputer;
+
+                const finish = document.createElement('div');
+                container.appendChild(finish);
+
+
+                if (countComputer == 5) {
+                    finish.textContent = 'The computer won ! :(';
+
+                }
+                else if (countUser == 5) {
+                    finish.textContent = 'You are the winner! :)';
+
+
+                };
+            }
         });
-
     });
+};
 
+
+function playAgain() {
+    const btn = document.createElement('button');
 }
+
+
+
 game();
-
-/* 
-for (var i = 0; i <= 5; i++) {
-    game();
-}
-if (countUser>countComputer){
-    console.log("You are the winner!");
-}
-else if(countUser<countComputer){
-    console.log("The computer won!");
-}
-else{
-    console.log("It's a draw!");
-}
-*/
-
 
 
